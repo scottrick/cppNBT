@@ -32,4 +32,9 @@ namespace nbt
     {
         return "TAG_End";
     }
+
+    Tag *TagEnd::clone() const
+    {
+        return new TagEnd();
+    }
 }

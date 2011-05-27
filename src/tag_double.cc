@@ -66,4 +66,9 @@ namespace nbt
 
         return ret.str();
     }
+
+    Tag *TagDouble::clone() const
+    {
+        return new TagDouble(_name, _value);
+    }
 }

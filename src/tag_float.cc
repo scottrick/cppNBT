@@ -66,4 +66,9 @@ namespace nbt
 
         return ret.str();
     }
+
+    Tag *TagFloat::clone() const
+    {
+        return new TagFloat(_name, _value);
+    }
 }

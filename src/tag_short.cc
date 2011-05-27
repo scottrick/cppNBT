@@ -66,4 +66,9 @@ namespace nbt
 
         return ret.str();
     }
+
+    Tag *TagShort::clone() const
+    {
+        return new TagShort(_name, _value);
+    }
 }

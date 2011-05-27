@@ -71,4 +71,9 @@ namespace nbt
 
         return ret.str();
     }
+
+    Tag *TagString::clone() const
+    {
+        return new TagString(_name, _value);
+    }
 }

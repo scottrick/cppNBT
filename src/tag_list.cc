@@ -230,4 +230,9 @@ namespace nbt
 
         return ret.str();
     }
+
+    Tag *TagList::clone() const
+    {
+        return new TagList(_childType, _name, _value);
+    }
 }

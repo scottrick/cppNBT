@@ -14,13 +14,20 @@ namespace nbt
                              const std::list<Tag *> &value)
         : Tag(name)
     {
-        _value = value;
+        std::list<Tag *>::const_iterator i;
+
+        for (i = value.begin(); i != value.end(); ++i)
+            insert(**i);
     }
 
 
     TagCompound::TagCompound(const TagCompound &t) : Tag(t.getName())
     {
-        _value = t.getValue();
+        std::vector<Tag *>::const_iterator i;
+        std::vector<Tag *> v = t.getValues();
+
+        for (i = v.begin(); i != v.end(); ++i)
+            insert(**i);
     }
 
 
@@ -149,6 +156,12 @@ namespace nbt
 
     Tag *TagCompound::clone() const
     {
-        return new TagCompound();
+        TagCompound *ret = new TagCompound(_name);
+
+        std::list<Tag *>::const_iterator t;
+        for (t = _value.begin(); t != _value.end(); ++t)
+            ret->insert(**t);
+
+        return ret;
     }
 }

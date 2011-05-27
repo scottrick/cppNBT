@@ -30,6 +30,8 @@ namespace nbt
             virtual ByteArray toByteArray();
             virtual std::string toString();
 
+            virtual Tag *clone() const;
+
         protected:
             ByteArray _value;
     };

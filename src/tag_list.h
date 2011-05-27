@@ -62,6 +62,8 @@ namespace nbt
             virtual ByteArray toByteArray();
             virtual std::string toString();
 
+            virtual Tag *clone() const;
+
         protected:
             uint8_t _childType;
             std::vector<Tag *> _value;

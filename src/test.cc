@@ -15,16 +15,9 @@
 using namespace std;
 using namespace nbt;
 
-int main(int argc, char **argv)
+void dumpTag(Tag *t)
 {
-    TagCompound t("Root");
-
-    cout << "Created Tag with name '" << t.getName() << endl;
-
-    cout << t.toString() << endl << endl;
-    cout << "Dumping to NBT..." << endl;
-
-    nbt::ByteArray b = t.toByteArray();
+    nbt::ByteArray b = t->toByteArray();
 
     for (size_t i = 0; i < b.size(); ++i)
     {
@@ -35,6 +28,23 @@ int main(int argc, char **argv)
     }
 
     cout << endl;
+}
+
+int main(int argc, char **argv)
+{
+    TagCompound t("Root");
+
+    t.insert(TagShort("Age", 21));
+    cout << "Created Tag with name '" << t.getName() << endl;
+
+    cout << t.toString() << endl << endl;
+    cout << "Dumping to NBT..." << endl;
+
+    dumpTag(&t);
+
+    Tag *tc = t.clone();
+    dumpTag(tc);
+    delete tc;
 
     return 0;
 }

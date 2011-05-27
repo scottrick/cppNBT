@@ -63,4 +63,9 @@ namespace nbt
 
         return ret.str();
     }
+
+    Tag* TagByte::clone() const
+    {
+        return new TagByte(_name, _value);
+    }
 }

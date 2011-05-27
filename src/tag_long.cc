@@ -66,4 +66,9 @@ namespace nbt
 
         return ret.str();
     }
+
+    Tag *TagLong::clone() const
+    {
+        return new TagLong(_name, _value);
+    }
 }

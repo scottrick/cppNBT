@@ -23,6 +23,9 @@ namespace nbt
 
             virtual uint8_t getType() const;
             virtual std::string toString();
+
+            virtual Tag *clone() const;
+
     };
 }
 

@@ -79,4 +79,9 @@ namespace nbt
 
         return ret.str();
     }
+
+    Tag* TagByteArray::clone() const
+    {
+        return new TagByteArray(_name, _value);
+    }
 }
