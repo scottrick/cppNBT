@@ -10,15 +10,15 @@
 
 namespace nbt
 {
-    TagShort::TagShort(const std::string &name, const int16_t &value) : Tag(name)
+    TagShort::TagShort(const std::string &name, const int16_t &value)
+        : Tag(name), _value(value)
     {
-        _value = value;
     }
 
 
-    TagShort::TagShort(const TagShort &t) : Tag(t.getName())
+    TagShort::TagShort(const TagShort &t)
+        : Tag(t.getName()), _value(t.getValue())
     {
-        _value = t.getValue();
     }
 
     

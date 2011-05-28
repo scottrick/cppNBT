@@ -11,15 +11,14 @@
 namespace nbt
 {
     TagString::TagString(const std::string &name, const std::string &value) 
-        : Tag(name)
+        : Tag(name), _value(value)
     {
-        _value = value;
     }
 
     
-    TagString::TagString(const TagString &t) : Tag(t.getName())
+    TagString::TagString(const TagString &t)
+        : Tag(t.getName()), _value(t.getValue())
     {
-        _value = t.getValue();
     }
 
 

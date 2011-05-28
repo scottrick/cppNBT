@@ -10,15 +10,15 @@
 
 namespace nbt
 {
-    TagLong::TagLong(const std::string &name, const int64_t &value) : Tag(name)
+    TagLong::TagLong(const std::string &name, const int64_t &value)
+        : Tag(name), _value(value)
     {
-        _value = value;
     }
 
 
-    TagLong::TagLong(const TagLong &t) : Tag(t.getName())
+    TagLong::TagLong(const TagLong &t)
+        : Tag(t.getName()), _value(t.getValue())
     {
-        _value = t.getValue();
     }
 
     

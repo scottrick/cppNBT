@@ -10,15 +10,15 @@
 
 namespace nbt
 {
-    TagDouble::TagDouble(const std::string &name, const double &value) : Tag(name)
+    TagDouble::TagDouble(const std::string &name, const double &value)
+        : Tag(name), _value(value)
     {
-        _value = value;
     }
 
 
-    TagDouble::TagDouble(const TagDouble &t) : Tag(t.getName())
+    TagDouble::TagDouble(const TagDouble &t)
+        : Tag(t.getName()), _value(t.getValue())
     {
-        _value = t.getValue();
     }
 
     

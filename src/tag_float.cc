@@ -10,15 +10,15 @@
 
 namespace nbt
 {
-    TagFloat::TagFloat(const std::string &name, const float &value) : Tag(name)
+    TagFloat::TagFloat(const std::string &name, const float &value)
+        : Tag(name), _value(value)
     {
-        _value = value;
     }
 
 
-    TagFloat::TagFloat(const TagFloat &t) : Tag(t.getName())
+    TagFloat::TagFloat(const TagFloat &t)
+        : Tag(t.getName()), _value(t.getValue())
     {
-        _value = t.getValue();
     }
 
     

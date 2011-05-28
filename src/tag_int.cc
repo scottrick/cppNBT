@@ -10,15 +10,15 @@
 
 namespace nbt
 {
-    TagInt::TagInt(const std::string &name, const int32_t &value) : Tag(name)
+    TagInt::TagInt(const std::string &name, const int32_t &value)
+        : Tag(name), _value(value)
     {
-        _value = value;
     }
 
     
-    TagInt::TagInt(const TagInt &t) : Tag(t.getName())
+    TagInt::TagInt(const TagInt &t)
+        : Tag(t.getName()), _value(t.getValue())
     {
-        _value = t.getValue();
     }
 
 
