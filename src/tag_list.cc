@@ -16,20 +16,32 @@ namespace nbt
         : Tag(name)
     {
         _childType = type;
-        _value = value;
+
+        std::vector<Tag *>::const_iterator i;
+
+        for (i = value.begin(); i != value.end(); ++i)
+            append(**i);
     }
 
 
     TagList::TagList(const TagList &t) : Tag(t.getName())
     {
         _childType = t.getChildType();
-        _value = t.getValue();
+
+        std::vector<Tag *>::const_iterator i;
+        std::vector<Tag *> value = t.getValue();
+
+        for (i = value.begin(); i != value.end(); ++i)
+            append(**i);
     }
 
 
     TagList::~TagList()
     {
-        // DEVILS BE GONE
+        std::vector<Tag *>::iterator it;
+
+        for (it = _value.begin(); it != _value.end(); ++it)
+            delete *it;
     }
 
 
@@ -41,7 +53,9 @@ namespace nbt
 
     void TagList::setValue(const std::vector<Tag *> &value)
     {
-        _value = value;
+        std::vector<Tag *>::const_iterator i;
+        for (i = value.begin(); i != value.end(); ++i)
+            append(**i);
     }
 
 
@@ -58,19 +72,11 @@ namespace nbt
     }
 
 
-    void TagList::append(Tag *value)
+    void TagList::append(const Tag &value)
     {
-        if (value->getType() == _childType)
-            _value.push_back(value);
+        if (value.getType() == _childType)
+            _value.push_back(value.clone());
 
-    }
-
-
-    void TagList::append(const std::vector<Tag *> &values)
-    {
-        for (size_t i = 0; i < values.size(); ++i)
-            if (values[i]->getType() == _childType)
-                _value.push_back(values[i]);
     }
 
 
@@ -78,6 +84,7 @@ namespace nbt
     {
         if (_value.size() > 0)
         {
+            delete *(_value.begin());
             _value.erase(_value.begin());
         }
     }
@@ -86,48 +93,54 @@ namespace nbt
     void TagList::removeLast()
     {
         if (_value.size() > 0)
-            _value.erase(_value.end());
-    }
-
-
-    void TagList::removeAll(Tag *tag)
-    {
-        // TODO
-    }
-
-
-    void TagList::removeOne(Tag *tag)
-    {
-        for (size_t i = 0; i < _value.size(); ++i)
         {
-            if (_value[i] == tag)
+            delete *(_value.end() - 1);
+            _value.erase(_value.end() - 1);
+        }
+    }
+
+
+    void TagList::remove(Tag *tag)
+    {
+        // TODO: Throw exception if name not known
+        std::vector<Tag *>::iterator i;
+        for (i = _value.begin(); i < _value.end(); ++i)
+        {
+            if (*i == tag)
             {
-                _value.erase(_value.begin() + i);
+                delete *i;
+                _value.erase(i);
+
                 break;
             }
         }
     }
 
 
-    void TagList::removeAt(const int &i)
+    void TagList::remove(size_t i)
     {
+        // TODO: Out of bounds exception
         if (_value.size() > 0)
         {
-            _value.erase(_value.begin() + i);
+            std::vector<Tag *>::iterator it = _value.begin() + i;
+            delete *it;
+            _value.erase(it);
         }
     }
 
 
     void TagList::clear()
     {
-        /*for (size_t i = 0; i < _value.size(); ++i)
-            delete _value[i];*/
-
-        _value.clear();
+        std::vector<Tag *>::iterator i;
+        for (i = _value.begin(); i < _value.end(); ++i)
+        {
+            delete *i;
+            _value.erase(i);
+        }
     }
 
 
-    Tag *TagList::at(const int &i)
+    Tag *TagList::at(size_t i) const
     {
         if (_value.size() > 0)
             return _value.at(i);
@@ -136,7 +149,7 @@ namespace nbt
     }
 
 
-    Tag *TagList::back()
+    Tag *TagList::back() const
     {
         if (_value.size() > 0)
             return _value.back();
@@ -145,22 +158,12 @@ namespace nbt
     }
 
 
-    Tag *TagList::front()
+    Tag *TagList::front() const
     {
         if (_value.size() > 0)
             return _value.front();
         else
             throw EmptyListException();
-    }
-
-
-    bool TagList::contains(Tag *tag) const
-    {
-        for (size_t i = 0; i < _value.size(); ++i)
-            if (_value[i] == tag)
-                return true;
-
-        return false;
     }
 
 
@@ -188,9 +191,10 @@ namespace nbt
         for (int i = 3; i >= 0; --i)
             ret.push_back(split[i]);
 
-        for (size_t i = 0; i < _value.size(); ++i)
+        std::vector<Tag *>::iterator i;
+        for (i = _value.begin(); i != _value.end(); ++i)
         {
-            ByteArray tmp = _value[i]->toByteArray();
+            ByteArray tmp = (*i)->toByteArray();
             uint8_t len_parts[2];
 
             len_parts[0] = tmp.at(2);
@@ -233,6 +237,24 @@ namespace nbt
 
     Tag *TagList::clone() const
     {
-        return new TagList(_childType, _name, _value);
+        TagList *ret = new TagList(_childType, _name);
+
+        std::vector<Tag *>::const_iterator t;
+        for (t = _value.begin(); t != _value.end(); ++t)
+            ret->append(**t);
+
+        return ret;
+    }
+
+    Tag *TagList::operator[](size_t index) const
+    {
+        return at(index);
+    }
+
+    TagList &TagList::operator<<(const Tag &tag)
+    {
+        append(tag);
+
+        return *this;
     }
 }

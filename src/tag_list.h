@@ -41,21 +41,21 @@ namespace nbt
             uint8_t getChildType() const;
             void setChildType(const uint8_t &value);
 
-            void append(Tag *value);
-            void append(const std::vector<Tag *> &values);
+            void append(const Tag &value);
 
             void removeFirst();
             void removeLast();
-            void removeAll(Tag *tag);
-            void removeOne(Tag *tag);
-            void removeAt(const int &i);
+            void remove(Tag *tag);
+            void remove(size_t i);
             void clear();
 
-            Tag *at(const int &i);
-            Tag *back();
-            Tag *front();
+            Tag *at(size_t i) const;
+            Tag *back() const;
+            Tag *front() const;
 
-            bool contains(Tag *tag) const;
+            Tag *operator[](size_t index) const;
+            TagList &operator<<(const Tag &tag);
+
             size_t size() const;                
 
             virtual uint8_t getType() const;

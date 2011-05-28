@@ -48,7 +48,9 @@ namespace nbt
 
     void TagCompound::setValue(const std::list<Tag *> value)
     {
-        _value = value;
+        std::list<Tag *>::const_iterator i;
+        for (i = value.begin(); i != value.end(); ++i)
+            insert(**i);
     }
 
     void TagCompound::insert(const Tag &tag)
@@ -58,13 +60,15 @@ namespace nbt
 
     void TagCompound::remove(const std::string &name)
     {
+        // TODO: Throw exception if name not known
         std::list<Tag *>::iterator it;
-
         for (it = _value.begin(); it != _value.end(); ++it)
         {
             if ((*it)->getName() == name)
             {
+                delete *it;
                 _value.erase(it);
+
                 break;
             }
         }
@@ -94,9 +98,9 @@ namespace nbt
     }
 
 
-    Tag *TagCompound::getValueAt(const std::string &key)
+    Tag *TagCompound::getValueAt(const std::string &key) const
     {
-        std::list<Tag *>::iterator it;
+        std::list<Tag *>::const_iterator it;
 
         for (it = _value.begin(); it != _value.end(); ++it)
             if ((*it)->getName() == key)
@@ -163,5 +167,17 @@ namespace nbt
             ret->insert(**t);
 
         return ret;
+    }
+
+    Tag *TagCompound::operator[](const std::string &key) const
+    {
+        return getValueAt(key);
+    }
+
+    TagCompound &TagCompound::operator<<(const Tag &tag)
+    {
+        insert(tag);
+
+        return *this;
     }
 }

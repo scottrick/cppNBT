@@ -11,6 +11,7 @@
 #include <iostream>
 
 #include "tags.h"
+#include "nbtfile.h"
 
 using namespace std;
 using namespace nbt;
@@ -32,9 +33,19 @@ void dumpTag(Tag *t)
 
 int main(int argc, char **argv)
 {
-    TagCompound t("Root");
+    TagCompound t("Balls");
+    TagList l(TAG_SHORT, "Fibonacci");
 
-    t.insert(TagShort("Age", 21));
+    l.append(TagShort("", 1));
+    l.append(TagShort("", 1));
+    l.append(TagShort("", 2));
+    l.append(TagShort("", 3));
+    l.append(TagShort("", 5));
+
+    t.insert(TagString("of", "steel"));
+    t.insert(l);
+
+    t.remove("Fbonacci");
     cout << "Created Tag with name '" << t.getName() << endl;
 
     cout << t.toString() << endl << endl;
@@ -42,7 +53,12 @@ int main(int argc, char **argv)
 
     dumpTag(&t);
 
+    NbtFile f;
+
     Tag *tc = t.clone();
+    f.setRoot(*tc);
+    f.write("out.nbt");
+
     dumpTag(tc);
     delete tc;
 

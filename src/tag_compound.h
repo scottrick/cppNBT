@@ -46,13 +46,16 @@ namespace nbt
 
             std::vector<std::string> getKeys() const;
             std::vector<Tag *> getValues() const;
-            Tag *getValueAt(const std::string &key);
+            Tag *getValueAt(const std::string &key) const;
+
+            Tag *operator[](const std::string &key) const;
+            TagCompound &operator<<(const Tag &tag);
 
             virtual uint8_t getType() const;
             virtual ByteArray toByteArray();
             virtual std::string toString();
 
-            virtual Tag* clone() const;
+            virtual Tag *clone() const;
 
         protected:
             std::list<Tag *> _value;
