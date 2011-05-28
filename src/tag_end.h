@@ -22,7 +22,7 @@ namespace nbt
             TagEnd(const TagEnd &t);
 
             virtual uint8_t getType() const;
-            virtual std::string toString();
+            virtual std::string toString() const;
 
             virtual Tag *clone() const;
 

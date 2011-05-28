@@ -116,10 +116,10 @@ namespace nbt
     }
 
 
-    ByteArray TagCompound::toByteArray()
+    ByteArray TagCompound::toByteArray() const
     {
         ByteArray ret = Tag::toByteArray();
-        std::list<Tag *>::iterator it;
+        std::list<Tag *>::const_iterator it;
 
         for(it = _value.begin(); it != _value.end(); ++it)
         {
@@ -135,10 +135,10 @@ namespace nbt
     }
 
 
-    std::string TagCompound::toString()
+    std::string TagCompound::toString() const
     {
         std::stringstream ret;
-        std::list<Tag *>::iterator it;
+        std::list<Tag *>::const_iterator it;
 
         ret << "TAG_Compound";
 
@@ -167,11 +167,6 @@ namespace nbt
             ret->insert(**t);
 
         return ret;
-    }
-
-    Tag *TagCompound::operator[](const std::string &key) const
-    {
-        return getValueAt(key);
     }
 
     TagCompound &TagCompound::operator<<(const Tag &tag)

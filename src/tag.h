@@ -45,15 +45,15 @@ namespace nbt
 
             // Get and set name
             std::string getName() const;
-            void setName(std::string &name);
+            void setName(const std::string &name);
 
             // Get type name and ID
             std::string getTypeName() const;
             static std::string getTypeName(uint8_t type);
 
             virtual uint8_t getType() const;
-            virtual ByteArray toByteArray();
-            virtual std::string toString();
+            virtual ByteArray toByteArray() const;
+            virtual std::string toString() const;
 
             virtual Tag* clone() const = 0;
 

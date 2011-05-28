@@ -41,7 +41,7 @@ namespace nbt
     }
 
 
-    ByteArray TagString::toByteArray()
+    ByteArray TagString::toByteArray() const
     {
         ByteArray ret = Tag::toByteArray();
 
@@ -58,7 +58,7 @@ namespace nbt
     }
 
 
-    std::string TagString::toString()
+    std::string TagString::toString() const
     {
         std::stringstream ret;
 

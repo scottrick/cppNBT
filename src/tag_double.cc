@@ -40,11 +40,11 @@ namespace nbt
     }
 
 
-    ByteArray TagDouble::toByteArray()
+    ByteArray TagDouble::toByteArray() const
     {
         ByteArray ret = Tag::toByteArray();
 
-        uint8_t *split = reinterpret_cast<uint8_t *>(&_value);
+        const uint8_t *split = reinterpret_cast<const uint8_t *>(&_value);
 
         for (int i = 7; i >= 0; --i)
             ret.push_back(split[i]);
@@ -53,7 +53,7 @@ namespace nbt
     }
 
 
-    std::string TagDouble::toString()
+    std::string TagDouble::toString() const
     {
         std::stringstream ret;
         

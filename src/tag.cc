@@ -49,7 +49,7 @@ namespace nbt
     }
 
 
-    void Tag::setName(std::string &name)
+    void Tag::setName(const std::string &name)
     {
         // Assign a new name
         _name = name;
@@ -114,7 +114,7 @@ namespace nbt
     }
 
 
-    ByteArray Tag::toByteArray()
+    ByteArray Tag::toByteArray() const
     {
         ByteArray ret;
         int16_t length = _name.length();
@@ -134,7 +134,7 @@ namespace nbt
     }
 
 
-    std::string Tag::toString()
+    std::string Tag::toString() const
     {
         return "TAG" + (_name.empty() ? "" : "(\"" + _name + "\")");
     }

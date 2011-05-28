@@ -28,7 +28,7 @@ namespace nbt
     }
 
 
-    std::string TagEnd::toString()
+    std::string TagEnd::toString() const
     {
         return "TAG_End";
     }

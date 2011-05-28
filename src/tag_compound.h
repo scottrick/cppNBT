@@ -48,12 +48,11 @@ namespace nbt
             std::vector<Tag *> getValues() const;
             Tag *getValueAt(const std::string &key) const;
 
-            Tag *operator[](const std::string &key) const;
             TagCompound &operator<<(const Tag &tag);
 
             virtual uint8_t getType() const;
-            virtual ByteArray toByteArray();
-            virtual std::string toString();
+            virtual ByteArray toByteArray() const;
+            virtual std::string toString() const;
 
             virtual Tag *clone() const;
 

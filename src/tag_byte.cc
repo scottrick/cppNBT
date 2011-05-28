@@ -40,7 +40,7 @@ namespace nbt
     }
 
 
-    ByteArray TagByte::toByteArray()
+    ByteArray TagByte::toByteArray() const
     {
         ByteArray ret = Tag::toByteArray();
 
@@ -50,7 +50,7 @@ namespace nbt
     }
 
 
-    std::string TagByte::toString()
+    std::string TagByte::toString() const
     {
         std::stringstream ret;
 
@@ -59,7 +59,7 @@ namespace nbt
         if (!_name.empty())
             ret << "(\"" << _name << "\")";
         
-        ret << ": " << _value;
+        ret << ": " << static_cast<int>(_value);
 
         return ret.str();
     }

@@ -27,8 +27,8 @@ namespace nbt
             void setValue(const ByteArray &value);
 
             virtual uint8_t getType() const;
-            virtual ByteArray toByteArray();
-            virtual std::string toString();
+            virtual ByteArray toByteArray() const;
+            virtual std::string toString() const;
 
             virtual Tag *clone() const;
 

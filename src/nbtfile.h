@@ -12,28 +12,62 @@
 // gzip compression
 #include <zlib.h>
 #include <string>
+#include <stdexcept>
+#include <cerrno>
 
 #include "tags.h"
 
 namespace nbt
 {
-    class NbtFile
+    class GzipIOException : public std::runtime_error
     {
         public:
+            GzipIOException(int code)
+                : std::runtime_error("key not found in compound"), code(code) {}
+
+            int getCode() { return code; }
+
+        private:
+            int code;
+    };
+
+    class NbtFile
+    {
+        typedef Tag *(NbtFile::*NbtMembFn)();
+
+        public:
             NbtFile();
+            NbtFile(const std::string &fname);
             virtual ~NbtFile();
 
-            void read(const std::string &fname);
-            void write(const std::string &fname);
+            void open(const std::string &fname = "", const std::string &flags = "r");
+            void close();
+            void read();
+            void write();
 
             Tag *getRoot() const;
             void setRoot(const Tag &r);
 
         protected:
+            NbtMembFn getReader(uint8_t type);
+
+            Tag *readTag();
+
+            Tag *readByte();
+            Tag *readShort();
+            Tag *readInt();
+            Tag *readLong();
+            Tag *readFloat();
+            Tag *readDouble();
+            Tag *readByteArray();
+            Tag *readString();
+            Tag *readList();
+            Tag *readCompound();
+
+            std::string _fname;
             Tag *_root;
 
-            gzFile open(const std::string &fname, const std::string &mode = "w");
-            void close(gzFile &f);
+            gzFile _file;
     };
 }
 

@@ -33,34 +33,27 @@ void dumpTag(Tag *t)
 
 int main(int argc, char **argv)
 {
-    TagCompound t("Balls");
-    TagList l(TAG_SHORT, "Fibonacci");
-
-    l.append(TagShort("", 1));
-    l.append(TagShort("", 1));
-    l.append(TagShort("", 2));
-    l.append(TagShort("", 3));
-    l.append(TagShort("", 5));
-
-    t.insert(TagString("of", "steel"));
-    t.insert(l);
-
-    t.remove("Fbonacci");
-    cout << "Created Tag with name '" << t.getName() << endl;
-
-    cout << t.toString() << endl << endl;
-    cout << "Dumping to NBT..." << endl;
-
-    dumpTag(&t);
-
     NbtFile f;
 
-    Tag *tc = t.clone();
-    f.setRoot(*tc);
-    f.write("out.nbt");
+    if (argc < 2)
+    {
+        std::cerr << "Usage: " << argv[0] << " <nbtfile>" << std::endl;
+        return 1;
+    }
 
-    dumpTag(tc);
-    delete tc;
+    try
+    {
+        f.open(argv[1]);
+        f.read();
+
+        Tag *root = f.getRoot();
+        std::cout << root->toString() << std::endl;
+
+    }
+    catch (GzipIOException &gzioe)
+    {
+        std::cerr << "Unable to load NBT file: " << gzioe.getCode() << std::endl;
+    }
 
     return 0;
 }

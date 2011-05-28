@@ -179,7 +179,7 @@ namespace nbt
     }
 
 
-    ByteArray TagList::toByteArray()
+    ByteArray TagList::toByteArray() const
     {
         ByteArray ret = Tag::toByteArray();
 
@@ -191,7 +191,7 @@ namespace nbt
         for (int i = 3; i >= 0; --i)
             ret.push_back(split[i]);
 
-        std::vector<Tag *>::iterator i;
+        std::vector<Tag *>::const_iterator i;
         for (i = _value.begin(); i != _value.end(); ++i)
         {
             ByteArray tmp = (*i)->toByteArray();
@@ -212,7 +212,7 @@ namespace nbt
     }
 
 
-    std::string TagList::toString()
+    std::string TagList::toString() const
     {
         std::stringstream ret;
         
