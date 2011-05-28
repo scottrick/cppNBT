@@ -1,8 +1,8 @@
 /******************************************************************************
  *
- *  Balls (test.cc)
+ *  Test file (test.cc)
  *  ---
- *  Have you seen 'em?
+ *  ... just some testing
  *
  *  Created: 02.02.2011 03:25:14
  *  Author:  Lukas Niederbremer
