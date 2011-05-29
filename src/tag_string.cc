@@ -15,7 +15,7 @@ namespace nbt
     {
     }
 
-    
+
     TagString::TagString(const TagString &t)
         : Tag(t.getName()), _value(t.getValue())
     {
