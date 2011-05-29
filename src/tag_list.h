@@ -42,6 +42,7 @@ namespace nbt
             void setChildType(const uint8_t &value);
 
             void append(const Tag &value);
+            void append(Tag *value);
 
             void removeFirst();
             void removeLast();

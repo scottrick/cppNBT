@@ -239,8 +239,7 @@ namespace nbt
         for (int i = 0; i < len; ++i)
         {
             Tag *child = (this->*reader)();
-            ret->append(*child);
-            delete child;
+            ret->append(child);
         }
 
         return ret;
@@ -259,8 +258,7 @@ namespace nbt
                 break;
             }
 
-            ret->insert(*child);
-            delete child;
+            ret->insert(child);
         }
 
         return ret;

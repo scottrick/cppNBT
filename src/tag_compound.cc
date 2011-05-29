@@ -58,6 +58,11 @@ namespace nbt
         _value.push_back(tag.clone());
     }
 
+    void TagCompound::insert(Tag *tag)
+    {
+        _value.push_back(tag);
+    }
+
     void TagCompound::remove(const std::string &name)
     {
         // TODO: Throw exception if name not known
@@ -167,12 +172,5 @@ namespace nbt
             ret->insert(**t);
 
         return ret;
-    }
-
-    TagCompound &TagCompound::operator<<(const Tag &tag)
-    {
-        insert(tag);
-
-        return *this;
     }
 }

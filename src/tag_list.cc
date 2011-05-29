@@ -80,6 +80,14 @@ namespace nbt
     }
 
 
+    void TagList::append(Tag *value)
+    {
+        if (value->getType() == _childType)
+            _value.push_back(value);
+
+    }
+
+
     void TagList::removeFirst()
     {
         if (_value.size() > 0)

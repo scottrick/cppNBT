@@ -42,13 +42,12 @@ namespace nbt
             void setValue(std::list<Tag *> value);
 
             void insert(const Tag &tag);
+            void insert(Tag *tag);
             void remove(const std::string &name);
 
             std::vector<std::string> getKeys() const;
             std::vector<Tag *> getValues() const;
             Tag *getValueAt(const std::string &key) const;
-
-            TagCompound &operator<<(const Tag &tag);
 
             virtual uint8_t getType() const;
             virtual ByteArray toByteArray() const;
