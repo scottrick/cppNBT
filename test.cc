@@ -10,8 +10,8 @@
  ******************************************************************************/
 #include <iostream>
 
-#include "tags.h"
-#include "nbtfile.h"
+#include "src/tags.h"
+#include "src/nbtfile.h"
 
 using namespace std;
 using namespace nbt;
@@ -52,7 +52,8 @@ int main(int argc, char **argv)
     }
     catch (GzipIOException &gzioe)
     {
-        std::cerr << "Unable to load NBT file: " << gzioe.getCode() << std::endl;
+        std::cerr << "Unable to load NBT file " << argv[1] << ": "
+        		  << gzioe.getCode() << std::endl;
     }
 
     return 0;
