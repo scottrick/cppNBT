@@ -1,6 +1,10 @@
+Debug/
+Release/
+.*
 *.vim
 *.swo
 *.swp
 *.o
-
+*.nbt
+*.dat
 nbttest
