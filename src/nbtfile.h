@@ -23,7 +23,7 @@ namespace nbt
     {
         public:
             GzipIOException(int code)
-                : std::runtime_error("key not found in compound"), code(code) {}
+                : std::runtime_error("Gzip IO error"), code(code) {}
 
             int getCode() { return code; }
 

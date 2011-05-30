@@ -190,7 +190,7 @@ namespace nbt
         if (!is_big_endian())
             flipBytes<int32_t>(len);
 
-        ByteArray ba(len);
+        ByteArray ba;
         for (int i = 0; i < len; ++i)
         {
             uint8_t byte;
