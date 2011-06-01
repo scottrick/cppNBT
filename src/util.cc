@@ -6,7 +6,7 @@
  *  Author:  Lukas Niederbremer
  *
  ******************************************************************************/
-#include "util.h"
+#include "cppnbt.h"
 
 namespace nbt
 {
