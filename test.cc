@@ -10,7 +10,7 @@
  ******************************************************************************/
 #include <iostream>
 
-#include "src/tags.h"
+#include "src/cppnbt.h"
 #include "src/nbtfile.h"
 
 using namespace std;

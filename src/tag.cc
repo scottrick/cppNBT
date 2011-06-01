@@ -8,10 +8,7 @@
  *  Author:  Lukas Niederbremer
  *
  ******************************************************************************/
-#include <iostream>
-
 #include "tag.h"
-#include "tags.h"
 
 namespace nbt
 {

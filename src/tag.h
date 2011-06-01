@@ -12,6 +12,7 @@
 #define TAG_H
 
 #include <vector>
+#include <string>
 
 #include <stdint.h> // int8_t, int16_t, ...
 

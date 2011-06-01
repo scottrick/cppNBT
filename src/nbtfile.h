@@ -15,7 +15,7 @@
 #include <stdexcept>
 #include <cerrno>
 
-#include "tags.h"
+#include "cppnbt.h"
 
 namespace nbt
 {
