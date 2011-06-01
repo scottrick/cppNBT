@@ -6,7 +6,7 @@
  *  Author:  Lukas Niederbremer
  *
  ******************************************************************************/
-#include "tag_string.h"
+#include "cppnbt.h"
 
 namespace nbt
 {

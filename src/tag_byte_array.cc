@@ -6,7 +6,7 @@
  *  Author:  Lukas Niederbremer
  *
  ******************************************************************************/
-#include "tag_byte_array.h"
+#include "cppnbt.h"
 
 namespace nbt
 {

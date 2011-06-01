@@ -11,7 +11,6 @@
 #include <iostream>
 
 #include "src/cppnbt.h"
-#include "src/nbtfile.h"
 
 using namespace std;
 using namespace nbt;

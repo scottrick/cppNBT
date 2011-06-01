@@ -8,27 +8,28 @@
  ******************************************************************************/
 #include "util.h"
 
-
-std::string string_replace(const std::string &string,
-                   const std::string &find,
-                   const std::string &replace)
+namespace nbt
 {
-    std::string ret = string;
-
-    for (int j = 0; (j = ret.find(find, j)) != std::string::npos;)
-        ret.replace(j++, find.length(), replace);
-
-    return ret;
-}
-
-bool is_big_endian()
-{
-    union
+    std::string string_replace(const std::string &string,
+            const std::string &find,
+            const std::string &replace)
     {
-        uint32_t i;
-        char c[4];
-    } bint = {0x01020304};
+        std::string ret = string;
 
-    return bint.c[0] == 1;
+        for (int j = 0; (j = ret.find(find, j)) != std::string::npos;)
+            ret.replace(j++, find.length(), replace);
+
+        return ret;
+    }
+
+    bool is_big_endian()
+    {
+        union
+        {
+            uint32_t i;
+            char c[4];
+        } bint = {0x01020304};
+
+        return bint.c[0] == 1;
+    }
 }
-
