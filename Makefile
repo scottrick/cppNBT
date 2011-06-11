@@ -16,7 +16,7 @@ libcppnbt: objects
 	ar -rcs libcppnbt.a $(OBJECTS)
 
 nbttest: libcppnbt test.cc
-	$(CC) $(CPPFLAGS) test.cc -lpng -lcppnbt -lz -o $@
+	$(CC) $(CPPFLAGS) test.cc -lcppnbt -lz -o $@
 
 objects: $(OBJECTS)
 $(OBJECTS):
