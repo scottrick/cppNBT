@@ -39,18 +39,7 @@ namespace nbt
 
     std::string Tag::getName() const
     {
-        // If a name is given, return that, otherwise create one from the type
-
-        if (!_name.empty())
-        {
-            return _name;
-        }
-        else
-        {
-            std::string name = "<" + getTypeName() + ">";
-
-            return name;
-        }
+        return _name;
     }
 
 
