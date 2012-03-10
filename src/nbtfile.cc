@@ -29,7 +29,7 @@ namespace nbt
     }
 
     NbtFile::NbtFile(const std::string &fname)
-        : _fname(fname), _root(NULL)
+        : _fname(fname), _root(NULL), _file(Z_NULL)
     {
         open(fname);
     }
