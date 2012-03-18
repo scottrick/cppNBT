@@ -380,6 +380,42 @@ namespace nbt
             std::string _value;
     };
 
+    class NbtBuffer
+    {
+        typedef Tag *(NbtBuffer::*NbtMembFn)();
+
+        public:
+            NbtBuffer();
+            NbtBuffer(unsigned char *buffer, unsigned int length);
+            virtual ~NbtBuffer();
+
+            void read(unsigned char *buffer, unsigned int length);
+
+            Tag *getRoot() const;
+            void setRoot(const Tag &r);
+
+        protected:
+            NbtMembFn getReader(uint8_t type);
+
+            Tag *readTag();
+
+            Tag *readByte();
+            Tag *readShort();
+            Tag *readInt();
+            Tag *readLong();
+            Tag *readFloat();
+            Tag *readDouble();
+            Tag *readByteArray();
+            Tag *readString();
+            Tag *readList();
+            Tag *readCompound();
+
+            Tag *_root;
+
+            unsigned char *buffer;
+            unsigned int position;
+    };
+
     class NbtFile
     {
         typedef Tag *(NbtFile::*NbtMembFn)();

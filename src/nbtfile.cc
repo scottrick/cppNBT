@@ -45,6 +45,12 @@ namespace nbt
         if (_file == Z_NULL)
             throw GzipIOException(0);
 
+        if (_root)
+        {
+            delete _root;
+            _root = NULL;
+        }
+
         _root = readTag(); // Read root
 
         return;
