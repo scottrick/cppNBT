@@ -102,6 +102,9 @@ namespace nbt
             case TAG_COMPOUND:
                 return "Compound";
 
+            case TAG_INT_ARRAY:
+                return "Int Array";
+
             default:
                 return "Unknown";
         }

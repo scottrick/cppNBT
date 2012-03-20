@@ -111,6 +111,7 @@ namespace nbt
             case TAG_STRING:     return &NbtFile::readString;
             case TAG_LIST:       return &NbtFile::readList;
             case TAG_COMPOUND:   return &NbtFile::readCompound;
+            case TAG_INT_ARRAY:  return &NbtFile::readIntArray;
             default: return NULL; // Also bogus
         }
     }
@@ -216,6 +217,26 @@ namespace nbt
         }
 
         return new TagByteArray("", ba);
+    }
+
+    Tag *NbtFile::readIntArray()
+    {
+        int32_t len;
+        gzread(_file, &len, 4);
+
+        if (!is_big_endian())
+            flipBytes<int32_t>(len);
+
+        IntArray ia;
+        for (int i = 0; i < len; ++i)
+        {
+            int32_t val;
+            gzread(_file, &val, 4);
+
+            ia.push_back(val);
+        }
+
+        return new TagIntArray("", ia);
     }
 
     Tag *NbtFile::readString()

@@ -81,7 +81,8 @@ namespace nbt
                 : std::runtime_error("list is empty") {}
     };
 
-    typedef std::vector<unsigned char> ByteArray;
+    typedef std::vector<unsigned char>  ByteArray;
+    typedef std::vector<int32_t>        IntArray;
 
     enum
     {
@@ -95,9 +96,9 @@ namespace nbt
         TAG_BYTE_ARRAY = 7,
         TAG_STRING     = 8,
         TAG_LIST       = 9,
-        TAG_COMPOUND   = 10
+        TAG_COMPOUND   = 10,
+        TAG_INT_ARRAY  = 11,
     };
-
 
     class Tag
     {
@@ -254,6 +255,27 @@ namespace nbt
     };
 
 
+    class TagIntArray : public Tag
+    {
+        public:
+            TagIntArray(const std::string &name,
+                         const IntArray &value = IntArray());
+            TagIntArray(const TagIntArray &t);
+
+            IntArray getValue() const;
+            void setValue(const IntArray &value);
+
+            virtual uint8_t getType() const;
+            virtual ByteArray toByteArray() const;
+            virtual std::string toString() const;
+
+            virtual Tag *clone() const;
+
+        protected:
+            IntArray _value;
+    };
+
+
     class TagInt : public Tag
     {
         public:
@@ -386,10 +408,10 @@ namespace nbt
 
         public:
             NbtBuffer();
-            NbtBuffer(unsigned char *buffer, unsigned int length);
+            NbtBuffer(uint8_t *compressedBuffer, unsigned int length);
             virtual ~NbtBuffer();
 
-            void read(unsigned char *buffer, unsigned int length);
+            void read(uint8_t *compressedBuffer, unsigned int length);
 
             Tag *getRoot() const;
             void setRoot(const Tag &r);
@@ -409,11 +431,11 @@ namespace nbt
             Tag *readString();
             Tag *readList();
             Tag *readCompound();
+            Tag *readIntArray();
 
             Tag *_root;
 
-            unsigned char *buffer;
-            unsigned int position;
+            uint8_t *_buffer; //will be NULL if not in the middle of a read() !
     };
 
     class NbtFile
@@ -449,6 +471,7 @@ namespace nbt
             Tag *readString();
             Tag *readList();
             Tag *readCompound();
+            Tag *readIntArray();
 
             std::string _fname;
             Tag *_root;
