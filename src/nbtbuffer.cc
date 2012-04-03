@@ -136,7 +136,6 @@ namespace nbt
         return new TagInt("", val);
     }
 
-
     Tag *NbtBuffer::readIntArray()
     {
         int32_t len = *((int32_t *)_buffer);
@@ -150,6 +149,9 @@ namespace nbt
         {
             int32_t val = *((int32_t *)_buffer);
             _buffer += sizeof(int32_t);
+
+            if (!is_big_endian())
+                flipBytes<int32_t>(val);
 
             ia.push_back(val);
         }

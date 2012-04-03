@@ -77,7 +77,7 @@ namespace nbt
     {
         std::stringstream ret;
         
-        ret << "TAG_Byte_Array";
+        ret << "TAG_Int_Array";
         
         if (!_name.empty())
             ret << "(\"" << _name << "\")";
