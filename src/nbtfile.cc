@@ -95,6 +95,7 @@ namespace nbt
     void NbtFile::close()
     {
         gzclose(_file);
+		_file = NULL;
     }
 
     NbtMembFn NbtFile::getReader(uint8_t type)
