@@ -107,7 +107,9 @@ namespace nbt
         std::list<Tag *>::const_iterator it;
 
         for (it = _value.begin(); it != _value.end(); ++it)
+		{
             ret.push_back(*it);
+		}
 
         return ret;
     }
@@ -118,8 +120,12 @@ namespace nbt
         std::list<Tag *>::const_iterator it;
 
         for (it = _value.begin(); it != _value.end(); ++it)
+		{
             if ((*it)->getName() == key)
+			{
                 return *it;
+			}
+		}
 
         throw KeyNotFoundException();
     }

@@ -84,13 +84,16 @@ namespace nbt
         
         ret << ": ";
 
-        for (size_t i = 0; i < _value.size(); ++i)
-        {
-            ret << "0x";
-            ret.width(2);
-            ret.fill('0');
-            ret << std::hex << (int)_value[i] << " ";
-        }
+		ret << _value.size() << " ints";
+
+		//comment this out if you wanna see the raw data
+        //for (size_t i = 0; i < _value.size(); ++i)
+        //{
+        //    ret << "0x";
+        //    ret.width(2);
+        //    ret.fill('0');
+        //    ret << std::hex << (int)_value[i] << " ";
+        //}
 
         return ret.str();
     }
