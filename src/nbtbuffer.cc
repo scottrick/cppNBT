@@ -201,16 +201,16 @@ namespace nbt
         if (!is_big_endian())
             flipBytes<int32_t>(len);
 
-        ByteArray ba;
+		unsigned char *byteArray = new unsigned char[len];
+
         for (int i = 0; i < len; ++i)
         {
             uint8_t byte = *((uint8_t *)_buffer);
+			byteArray[i] = byte;
             _buffer += sizeof(uint8_t);
-
-            ba.push_back(byte);
         }
 
-        return new TagByteArray("", ba);
+        return new TagByteArray("", byteArray, len);
     }
 
     Tag *NbtBuffer::readString()

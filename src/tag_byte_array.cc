@@ -20,28 +20,29 @@
 
 namespace nbt
 {
-    TagByteArray::TagByteArray(const std::string &name, const ByteArray &value) 
-        : Tag(name)
+	TagByteArray::TagByteArray(const std::string &name, unsigned char *values, unsigned int newSize)
+        : Tag(name), pValues(values), size(newSize)
     {
-        _value = value;
-    }
+
+	}
 
 
     TagByteArray::TagByteArray(const TagByteArray &t) : Tag(t.getName())
     {
-        _value = t.getValue();
-    }
+
+	}
 
     
-    ByteArray TagByteArray::getValue() const
+    const unsigned char *TagByteArray::getValues() const
     {
-        return _value;
+		return pValues;
     }
 
 
-    void TagByteArray::setValue(const ByteArray &value)
+    void TagByteArray::setValues(unsigned char *values, unsigned int newSize)
     {
-        _value = value;
+        pValues = values;
+		size = newSize;
     }
 
 
@@ -55,14 +56,14 @@ namespace nbt
     {
         ByteArray ret = Tag::toByteArray();
 
-        int32_t len = _value.size();
-        uint8_t *split = reinterpret_cast<uint8_t *>(&len);
+        //int32_t len = _value.size();
+        //uint8_t *split = reinterpret_cast<uint8_t *>(&len);
 
-        for (int i = 3; i >= 0; --i)
-            ret.push_back(split[i]);
+        //for (int i = 3; i >= 0; --i)
+        //    ret.push_back(split[i]);
 
-        for (int i = 0; i < len; ++i)
-            ret.push_back(_value[i]);
+        //for (int i = 0; i < len; ++i)
+        //    ret.push_back(_value[i]);
 
         return ret;
     }
@@ -79,15 +80,15 @@ namespace nbt
         
         ret << ": ";
 
-		ret << _value.size() << " bytes";
+		ret << size << " bytes";
 
 		//comment this out if you wanna see the raw data
-        //for (size_t i = 0; i < _value.size(); ++i)
+        //for (size_t i = 0; i < size; ++i)
         //{
         //    ret << "0x";
         //    ret.width(2);
         //    ret.fill('0');
-        //    ret << std::hex << (int)_value[i] << " ";
+        //    ret << std::hex << (int)pValues[i] << " ";
         //}
 
         return ret.str();
@@ -95,6 +96,6 @@ namespace nbt
 
     Tag* TagByteArray::clone() const
     {
-        return new TagByteArray(_name, _value);
+		return new TagByteArray(_name, pValues, size);
     }
 }

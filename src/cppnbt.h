@@ -131,12 +131,11 @@ namespace nbt
     class TagByteArray : public Tag
     {
         public:
-            TagByteArray(const std::string &name,
-                         const ByteArray &value = ByteArray());
+            TagByteArray(const std::string &name, unsigned char *values, unsigned int size);
             TagByteArray(const TagByteArray &t);
 
-            ByteArray getValue() const;
-            void setValue(const ByteArray &value);
+            const unsigned char *getValues() const;
+            void setValues(unsigned char *values, unsigned int size);
 
             virtual uint8_t getType() const;
             virtual ByteArray toByteArray() const;
@@ -145,7 +144,8 @@ namespace nbt
             virtual Tag *clone() const;
 
         protected:
-            ByteArray _value;
+			unsigned char *pValues;
+			unsigned int size;
     };
 
 
