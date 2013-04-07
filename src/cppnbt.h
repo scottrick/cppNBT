@@ -137,6 +137,8 @@ namespace nbt
             const unsigned char *getValues() const;
             void setValues(unsigned char *values, unsigned int size);
 
+			unsigned int getSize() const;
+
             virtual uint8_t getType() const;
             virtual ByteArray toByteArray() const;
             virtual std::string toString() const;

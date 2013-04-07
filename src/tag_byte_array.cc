@@ -45,6 +45,11 @@ namespace nbt
 		size = newSize;
     }
 
+	unsigned int TagByteArray::getSize() const
+	{
+		return size;
+	}
+
 
     uint8_t TagByteArray::getType() const
     {
